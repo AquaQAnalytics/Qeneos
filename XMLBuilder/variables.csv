@@ -1,0 +1,13 @@
+Level,LevelName,VarAtr,Name,VarType,Var
+ME,default,Var,GENEOS_WRAPPER_SCRIPT,string,/path/to/GeneosScripts/GeneosSampler.sh
+ME,default,Var,GENERIC_SAMPLER,string,/path/to/GeneosScripts/GenericGeneosQuery.q
+ME,Example1,Var,DISCOVERY_CONNECTION,integer,4001
+ME,Example1,Var,STACK_ID,integer,4000
+ME,Example1,Var,REGION,string,EMEA
+ME,Example1,Var,LOG,string,/path/to/Example1/logs/
+ME,Example1,Atr,REGION,string,EMEA
+ME,Example1,Atr,ENV,string,UAT
+ME,Example2,Var,DISCOVERY_CONNECTION,integer,5001
+type,default,Var,INSTANCE,integer,1
+type,HDB,Var,PROCESS,string,hdb
+type,RDB,Var,PROCESS,string,rdb
