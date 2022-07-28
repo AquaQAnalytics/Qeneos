@@ -1,5 +1,7 @@
 #/bin/bash
 
+mkdir -p XML
+
 cat fixedScripts/intro.xml > XML/geneos.xml
 q GeneosXMLBuilder.q >> XML/geneos.xml
 cat fixedScripts/rules.xml >> XML/geneos.xml

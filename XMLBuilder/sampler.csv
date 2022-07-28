@@ -1,3 +1,3 @@
 Name,Group,Type,Interval,Timezone,Query,Arguments
 FlowSampler,1. RDB,RDB,90,LocalTradingHours,{update Status:?[flowCount>0;`OK;`FAIL] from raze {([]tableName:x;flowCount:exec counter from select counter:count i from x)} each x}, `quote`trade
-T1Sampler,2. HDB,HDB1|HDB2,3600,LocalPostRollover,{update Status:?[rowCount>0;`OK;`FAIL] from raze {([]tableName:x;rowCount:exec counter from select counter:count i from x where date in {x+neg[1 2 3 1 1 1 1]x mod 7}[.z.D])} each x},`quote`trade
+T1Sampler,2. HDB,HDB,3600,LocalPostRollover,{update Status:?[rowCount>0;`OK;`FAIL] from raze {([]tableName:x;rowCount:exec counter from select counter:count i from x where date in {x+neg[1 2 3 1 1 1 1]x mod 7}[.z.D])} each x},`quote`trade
