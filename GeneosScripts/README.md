@@ -5,7 +5,7 @@ This directory holds scripts that can be used to run KDB+ Queries against q Proc
 Depending on which framework/connection method you want, you should uncomment the appropriate line from the GeneosSampler.sh scripts
 Also in GeneosSampler.sh you should export your QHOME path and update your Q path as necessary. QHOME is usually set in your path when installing kdb+ - if you can't remember it try running `echo $QHOME` on your command line.
 
-The General format to run the scripts is as follows:
+There is no need to manually do so as the Geneos XML Builder does all the heavy lifting for you, however if you wish to debug or view the scripts in action, the General format to run the scripts is as follows:
 
 #### For TorQ installations or for other frameworks that have a discovery process mapping the ports
 ```

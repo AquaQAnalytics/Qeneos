@@ -19,19 +19,21 @@ As we are using this on a small scale internally we have set up geneos to read t
 
 ## Populating the CSV files
 
+**The following instructions go in to quite a lot of detail on why we are doing particular things, with a focus on learning - if you are in a rush, edit the values where necessary in the 5 csv files to match your own kdb+ setup - you shouldn't have to add any new lines to get a basic setup running. Then run the shell script as described at the bottom of this file.**
+
 ### variables.csv
 
 We should start by populating some of the variables and attributes in this csv. We will keep returning to this file as we build out our monitoring system, so we don't need to fully populate everything in one go.
 
-**Note - 'default' in the variables.csv will apply it to all the Managed Entities or Types (depending on Level value). If you apply a default variable and then a variable to a specific Managed Entity or Type, the second will overwrite the first. Likewise if you apply a variable to a Managed Entity, any Types with different variables set used in that Managed Entity will use the variable set on the Type.**
-
 The variables csv containes variables for two different types of processes in Geneos - Managed Entities and Types. I generally consider Managed Entities (ME) as the top level container within your geneos system and personally prefer to have one ME per data flow. Types are the mid level building blocks and our philosophy here is to have one process or type of process (HDB, RDB) per type. MEs are generally groups of types, and types are groups of samplers.
+
+**Note - 'default' in the variables.csv will apply it to all the Managed Entities or Types (depending on Level value). Applying a variable to a specific Managed Entity or Type will overwrite the same variable if applied by default to that ME or Type. Likewise a variable applied to a Type will take precedence over the same variable applied to a ME.**
 
 Lets start populating the variables.csv by defining some expected values for ME. We have prepopulated the csv file with some of the variables and attributes that you should be able to populate at this point. We have called our Managed Entity Example1 - this should be changed to something more relevant.
 
-**Note - All the ME variables we have prepopulated contain example values - All of these variables need to be changed based off your configuration for it to work**
+**Note - All the ME variables we have prepopulated contain example values - All of these variables need to be changed based off your personal configuration for it to work**
 
-**Note -  We can also populate some attribute here. Attributes won't impact your samplers, but are used to improve the navigation of your MEs. The order and what attributes are considered are configured within the geneos user console, so each individual user can prioritusee them as they like.**
+**Note -  We can also populate some attribute here (Atr in the variables.csv). Attributes won't impact your samplers, but are used to improve the navigation of your MEs. The order and what attributes are considered are configured within the geneos user console, so each individual user can prioritise them as they like.**
 
 Provided you're intending to follow our philosophy of one process per type, you can keep the variables we have populated for the HDB and RDB Types as well.
 The 'process' and 'instance' variables are used to locate the processes via your discovery process. Therefore they should match the names exactly!
@@ -55,7 +57,8 @@ Any additional processes to be monitored should be added as above.
 ### back to the variables.csv
 
 Once we have decided what processes are going to be in this sampler we should update the variables.csv for any missing 'Types'. We have prepopulated HDB and RDB with variables, but any additional processes should be added here as well.
-**Note - You can Name your type whatever you like - but when setting the process variable, it must match the process name** 
+
+**Note - You can name your Type whatever you like - but when setting the PROCESS variable, it must match the process name/proctype** 
 
 ### samplers.csv
 
@@ -68,10 +71,10 @@ Some important factors to note:
 - Interval is how often the query samples in seconds. This should be decided on how likely the data is to change in that period, to minimise the impact your monitoring has on the system.
 - Timezone funcationality is not available in version 1, but will be available in later versions. Please put in some value to keep Geneos happy.
 - We have gone with a Function and argument structure - even if you are using a simple select function, please wrap it in {}, and give an arguement of ` to run it.
-- In order to use our in-built rules and keep your life as simple as possible, try to add a 'Status' column to your results tables, with `OK for Green, `WARN for amber and `FAIL for Red. Which value appears in the status column should be determined in your function - ie set your rules functionally. 
-- You can create geneos variables inside your samplers. To do so, you should use the following format `$myNewVariable` - you then need to add the variable to your variables csv for either the ME or the Type.
+- In order to use our in-built rules and keep your life as simple as possible, try to add a 'Status' column to your results tables, with`` `OK`` for Green,`` `WARN`` for amber and`` `FAIL`` for Red. Which value appears in the status column should be determined in your function - ie set your rules functionally. 
+- You can create geneos variables inside your samplers. To do so, you should use the following format `$(myNewVariable)` - you then need to add the variable to your variables csv for either the ME or the Type.
 - There are 2 rules that you need to remember when creating samplers in Geneos
-  1. If using a `$` to cast you should put a space afterwards, so Geneos doesn't think it's a variable - e.g. `` \`$ "string"``
+  1. If using a `$` to cast you should put a space afterwards, so Geneos doesn't think it's a variable - e.g. `` `$ "string"``
   2. Our geneos code wraps the query argument in apostrophes so these should be avoided in samplers - I advise using a function and each rather than `'` to avoid any issues
 
 
