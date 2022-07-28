@@ -3,7 +3,7 @@
 This directory holds scripts that can be used to run KDB+ Queries against q Processes.
 
 Depending on which framework/connection method you want, you should uncomment the appropriate line from the GeneosSampler.sh scripts
-Also in GeneosSampler.sh you should export your Q and QHOME paths
+Also in GeneosSampler.sh you should export your QHOME path and update your Q path as necessary. QHOME is usually set in your path when installing kdb+ - if you can't remember it try running `echo $QHOME` on your command line.
 
 The General format to run the scripts is as follows:
 
