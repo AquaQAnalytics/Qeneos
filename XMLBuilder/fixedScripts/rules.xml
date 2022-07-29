@@ -100,4 +100,46 @@
             </if>
         </block>
     </rule>
+    <rule name="Process Check">
+        <targets>
+            <target>/geneos/gateway/directory/probe/managedEntity/sampler[wild(@name,&quot;*Process Check&quot;)]/dataview/rows/row/cell[(@column=&quot;instanceCount&quot;)]</target>
+        </targets>
+        <priority>1</priority>
+        <block>
+            <if>
+                <like>
+                    <target>
+                        <rowName></rowName>
+                    </target>
+                    <string>*#*</string>
+                </like>
+                <transaction>
+                    <update>
+                        <property>state/@severity</property>
+                        <severity>undefined</severity>
+                    </update>
+                </transaction>
+                <if>
+                    <equal>
+                        <dataItem>
+                            <property>@value</property>
+                        </dataItem>
+                        <integer>0</integer>
+                    </equal>
+                    <transaction>
+                        <update>
+                            <property>state/@severity</property>
+                            <severity>critical</severity>
+                        </update>
+                    </transaction>
+                    <transaction>
+                        <update>
+                            <property>state/@severity</property>
+                            <severity>ok</severity>
+                        </update>
+                    </transaction>
+                </if>
+            </if>
+        </block>
+    </rule>
 </rules>
