@@ -12,7 +12,9 @@ METab:("SSS";enlist",") 0: `:./mEntity.csv;
 METab:update Types:{`$"|" vs string x} each Types from METab;
 
 /load in samplerTab from csv
-samplerTab:("SSSISSS";enlist",") 0: `:./sampler.csv;
+samplerTab:("SSSISS";enlist ",") 0: `:./sampler.csv;
+samplerQueryTab:("SS";enlist "'") 0: `:./samplerQuery.csv;
+samplerTab:0!(1!samplerTab)lj(1!samplerQueryTab);
 /ungroup samplerTab and string Query/Arguments
 samplerTab:update string Query, string Arguments from ungroup update {`$"|" vs x} each string Type from samplerTab;
 

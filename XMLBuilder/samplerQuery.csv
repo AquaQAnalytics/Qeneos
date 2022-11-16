@@ -1,0 +1,5 @@
+Name'Query
+ProcessSampler'{raze {([]process:enlist `$ x[1];status:enlist `$ x[2];pid:@[{enlist "I"$ x};x[3];0N];port:@[{enlist "I"$ first " " vs x};x[4];0N])} each 1_trim each ltrim each {"|" vs x} each system "./torq.sh summary"}
+FlowSampler'{update Status:?[flowCount>0;`OK;`FAIL] from raze {([]tableName:x;flowCount:exec counter from select counter:count i from x;lastTime:exec max time from x)} each x}
+T1Sampler'{update Status:?[rowCount>0;`OK;`FAIL] from raze {([]tableName:x;rowCount:exec counter from select counter:count i from x where date in {x+neg[1 2 3 1 1 1 1]x mod 7}[.z.D])} each x}
+T30Sampler'{lj/[{(`date;`$ (string[x],"Counter");`$ (string[x],"30DayAvg");`$ (string[x],"Status")) xcol update status:?[counter within (0.8*avgCounter;1.2*avgCounter);`OK;`FAIL] from update avgCounter:avg counter from select counter:count i by date from x where date > .z.d-31} each x]}
