@@ -1,4 +1,4 @@
-# Geneos XML Builder V1.0
+# Qeneos - Geneos XML Builder V1.0
 ##### Designed and maintained by AquaQ Analytics
 
 ## For Initial Setup
